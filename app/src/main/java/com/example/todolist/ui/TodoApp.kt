@@ -64,11 +64,24 @@ fun TodoApp() {
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = PositiveGreen,
+                        containerColor = AddGreen,
                         contentColor = Color.White
                     )
                 ) {
                     Text("Add Task")
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Button(
+                    onClick = { tasks.removeAll { it.isCompleted } },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = RemoveRed,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text("Remove Tasks")
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))

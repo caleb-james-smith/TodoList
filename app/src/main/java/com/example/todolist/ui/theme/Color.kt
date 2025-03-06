@@ -3,7 +3,8 @@ package com.example.todolist.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val TitleBlue = Color(0xFF069AF3)
-val PositiveGreen = Color(0xFF02CA37)
+val AddGreen = Color(0xFF02CA37)
+val RemoveRed = Color(0xFFFF333D)
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
