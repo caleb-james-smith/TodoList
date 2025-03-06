@@ -8,6 +8,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.todolist.model.Task
 import com.example.todolist.ui.theme.*
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.onKeyEvent
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
@@ -49,8 +56,30 @@ fun TodoApp() {
                 OutlinedTextField(
                     value = taskText,
                     onValueChange = { taskText = it },
-                    label = { Text("Enter task") },
-                    modifier = Modifier.fillMaxWidth()
+                    label = { Text("Enter Task") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            if (taskText.isNotBlank()) {
+                                tasks.add(Task(taskText))
+                                taskText = "" // Clear the input field after adding the task
+                            }
+                        }
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onKeyEvent { event ->
+                            if (event.key == Key.Enter && event.type == KeyEventType.KeyUp) {
+                                if (taskText.isNotBlank()) {
+                                    tasks.add(Task(taskText))
+                                    taskText = "" // Clear the input field after adding the task
+                                }
+                                true // Indicate that the event was handled
+                            } else {
+                                false // Allow other key events to be processed normally
+                            }
+                        }
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
