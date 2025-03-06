@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.todolist.model.Task
+import com.example.todolist.ui.theme.*
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +39,7 @@ fun TodoApp() {
             CenterAlignedTopAppBar(
                 title = { Text("TaskMaster", color = Color.White) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFF069AF3)
+                    containerColor = TitleBlue
                 )
             )
         },
@@ -61,7 +62,11 @@ fun TodoApp() {
                             taskText = ""
                         }
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = PositiveGreen,
+                        contentColor = Color.White
+                    )
                 ) {
                     Text("Add Task")
                 }
