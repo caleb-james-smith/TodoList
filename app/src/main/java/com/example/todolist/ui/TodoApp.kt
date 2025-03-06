@@ -45,7 +45,7 @@ fun TodoApp() {
         },
         content = { padding ->
             Column(modifier = Modifier.padding(padding)) {
-
+                // Text field for a new task
                 OutlinedTextField(
                     value = taskText,
                     onValueChange = { taskText = it },
@@ -55,37 +55,48 @@ fun TodoApp() {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Button(
-                    onClick = {
-                        if (taskText.isNotBlank()) {
-                            tasks.add(Task(taskText, false))
-                            taskText = ""
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = AddGreen,
-                        contentColor = Color.White
-                    )
+                // Row to contain buttons
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Add Task")
+                    // Button to add a new task
+                    Button(
+                        onClick = {
+                            if (taskText.isNotBlank()) {
+                                tasks.add(Task(taskText, false))
+                                taskText = ""
+                            }
+                        },
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AddGreen,
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text("Add Task")
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    // Button to remote all completed tasks
+                    Button(
+                        onClick = { tasks.removeAll { it.isCompleted } },
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = RemoveRed,
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text("Remove Tasks")
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Button(
-                    onClick = { tasks.removeAll { it.isCompleted } },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = RemoveRed,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text("Remove Tasks")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
+                // Display list of tasks
                 TaskList(tasks = tasks) { index, isChecked ->
                     tasks[index] = tasks[index].copy(isCompleted = isChecked)
                 }
